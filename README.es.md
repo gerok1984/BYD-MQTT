@@ -14,8 +14,12 @@ BYD MQTT es un complemento para Home Assistant OS que da a un cliente MQTT remot
 
 1. En **Ajustes → Aplicaciones (o Complementos) → Tienda → ⋮ → Repositorios**, añade `https://github.com/gerok1984/BYD-MQTT`.
 2. Busca **BYD MQTT** en la tienda e instálalo.
-3. Sigue la [guía de configuración y prueba](dolphin_mqtt_funnel/DOCS.es.md).
+3. Sigue la [guía de configuración y prueba](byd_mqtt/DOCS.es.md).
 
-Para instalarlo de forma local, copia la carpeta `dolphin_mqtt_funnel` a `/addons/` y recarga la tienda. Si ya lo instalaste localmente, sigue los [pasos de actualización](dolphin_mqtt_funnel/DOCS.es.md#actualizar-una-instalación-local) sobre la misma instalación para conservar el nodo de Tailscale y su URL.
+Para instalarlo de forma local, copia la carpeta `byd_mqtt` a `/addons/` y recarga la tienda. Si ya lo instalaste localmente, sigue los [pasos de actualización](byd_mqtt/DOCS.es.md#actualizar-una-instalación-local) sobre la misma instalación para conservar el nodo de Tailscale y su URL.
 
 Funnel da al servicio MQTT una URL pública. Mosquitto autentica la conexión y aplica los permisos existentes. Mantén desactivado el acceso anónimo y utiliza una cuenta dedicada con permisos limitados a los topics que necesita el cliente.
+
+## Configuración MQTT de Electro
+
+El complemento se creó para la app [Electro](https://www.electro.app.br/). [Configuración MQTT de Electro](byd_mqtt/DOCS.es.md#configurar-mqtt-en-electro).

@@ -14,8 +14,12 @@ BYD MQTT is a Home Assistant OS add-on that gives a remote MQTT client a secure 
 
 1. Open **Settings → Apps (or Add-ons) → App store → ⋮ → Repositories**. Add `https://github.com/gerok1984/BYD-MQTT`.
 2. Find **BYD MQTT** in the store and install it.
-3. Follow the [configuration and testing guide](dolphin_mqtt_funnel/DOCS.md).
+3. Follow the [configuration and testing guide](byd_mqtt/DOCS.md).
 
-For a local installation, copy the `dolphin_mqtt_funnel` folder to `/addons/` and reload the store. If you already installed the local build, update in place using the [upgrade instructions](dolphin_mqtt_funnel/DOCS.md#upgrade-a-local-installation) to keep your Tailscale node and URL.
+For a local installation, copy the `byd_mqtt` folder to `/addons/` and reload the store. If you already installed the local build, update in place using the [upgrade instructions](byd_mqtt/DOCS.md#upgrade-a-local-installation) to keep your Tailscale node and URL.
 
 Funnel gives the MQTT endpoint a public URL. Mosquitto authenticates the connection and applies its existing permissions. Keep anonymous access disabled and use a dedicated account limited to the MQTT topics the client needs.
+
+## Electro MQTT setup
+
+The add-on was built for the [Electro](https://www.electro.app.br/) app. [Electro MQTT setup](byd_mqtt/DOCS.md#configure-mqtt-in-electro).
