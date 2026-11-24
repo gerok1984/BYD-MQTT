@@ -1,5 +1,10 @@
 # Changelog / Historial de cambios
 
+## 1.0.3
+
+- Added a Home Assistant node-key expiry reminder and documented both Tailscale key lifetimes.
+- Se añade un aviso de caducidad de la clave del nodo y se documenta la duración de ambas claves de Tailscale.
+
 ## 1.0.2
 
 - Added the Home Assistant store logo and clarified Tailscale registration after a fresh install.

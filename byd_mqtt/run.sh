@@ -67,7 +67,14 @@ dns_name=$(ts status --json | jq -er '.Self.DNSName | trimstr(".") | select(leng
 echo "URL MQTT del Dolphin: wss://$dns_name/mqtt (puerto 443)."
 echo "Usa las credenciales MQTT de Mosquitto. Comprueba la conexión desde fuera de la red."
 
+. /usr/local/bin/expiry.sh
+next_expiry_check=0
 while kill -0 "$tailscale_pid" 2>/dev/null && kill -0 "$nginx_pid" 2>/dev/null; do
+    now=$(date +%s)
+    if [ "$now" -ge "$next_expiry_check" ]; then
+        check_node_expiry
+        next_expiry_check=$((now + 3600))
+    fi
     sleep 2
 done
 echo "Se ha detenido Tailscale o el proxy MQTT."

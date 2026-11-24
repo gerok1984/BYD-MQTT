@@ -1,4 +1,4 @@
-# BYD MQTT 1.0.2
+# BYD MQTT 1.0.3
 
 [Español](DOCS.es.md)
 
@@ -10,6 +10,12 @@
 4. Open the add-on log and copy the `wss://…ts.net/mqtt` URL. Once registration succeeds, you can clear `tailscale_auth_key` from the configuration. The node identity is stored in the add-on's persistent data.
 
 If you uninstalled the add-on or switched from a local installation to the repository, register the new installation with a fresh auth key. A single-use key is revoked after use. Copy the WSS URL from the new log and update Electro if it changed.
+
+## Tailscale key expiry
+
+- **Registration key:** In [Tailscale → Keys](https://console.tailscale.com/admin/settings/keys), select **Generate auth key** and leave **Reusable** and **Ephemeral** off. The default and maximum validity is 90 days before use, and Tailscale revokes a single-use key as soon as it registers a node. You can clear it from the add-on after registration.
+- **Node key:** The registered device has its own key, which expires after 180 days by default. Check the actual setting and expiry for your node in [Tailscale → Machines](https://console.tailscale.com/admin/machines).
+- **Reminder:** While the add-on is running, it checks the node's reported expiry about once an hour. At 14 days or less, it writes a log entry and creates a persistent notification in Home Assistant with links to Machines and the [reauthentication instructions](https://tailscale.com/docs/features/access-control/key-expiry).
 
 ## Configure MQTT in Electro
 

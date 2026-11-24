@@ -1,4 +1,4 @@
-# BYD MQTT 1.0.2
+# BYD MQTT 1.0.3
 
 [English](DOCS.md)
 
@@ -10,6 +10,12 @@
 4. Abre el registro y copia la dirección `wss://…ts.net/mqtt`. Una vez registrado el nodo, puedes vaciar `tailscale_auth_key`. La identidad se guarda en los datos persistentes del complemento.
 
 Si desinstalaste el complemento o cambiaste de una instalación local a la del repositorio, registra la nueva instalación con una clave nueva. La clave de un solo uso queda revocada tras usarla. Copia la URL WSS del nuevo registro y actualiza Electro si ha cambiado.
+
+## Caducidad de las claves de Tailscale
+
+- **Clave de registro:** En [Tailscale → Keys](https://console.tailscale.com/admin/settings/keys), pulsa **Generate auth key** y deja **Reusable** y **Ephemeral** desactivados. Su validez predeterminada y máxima antes de usarla es de 90 días. Tailscale revoca una clave de un solo uso en cuanto registra un nodo. Después puedes vaciar ese campo en el complemento.
+- **Clave del nodo:** El dispositivo registrado tiene su propia clave, que caduca a los 180 días por defecto. Consulta el ajuste y la fecha reales de tu nodo en [Tailscale → Machines](https://console.tailscale.com/admin/machines).
+- **Aviso:** Mientras el complemento está en marcha, comprueba la fecha que informa Tailscale aproximadamente cada hora. Cuando quedan 14 días o menos, escribe un aviso en el registro y crea una notificación persistente en Home Assistant con enlaces a Machines y a las [instrucciones de renovación](https://tailscale.com/docs/features/access-control/key-expiry).
 
 ## Configurar MQTT en Electro
 
