@@ -1,4 +1,4 @@
-# BYD MQTT 1.0.1
+# BYD MQTT 1.0.2
 
 [English](DOCS.md)
 
@@ -8,6 +8,8 @@
 2. En la [configuración DNS de Tailscale](https://console.tailscale.com/admin/dns), activa MagicDNS y los certificados HTTPS. Desde [Access controls](https://console.tailscale.com/admin/acls), [autoriza Funnel](https://tailscale.com/docs/features/tailscale-funnel#funnel-node-attribute) para la identidad que registre el complemento.
 3. Genera una [clave de registro](https://console.tailscale.com/admin/settings/keys) de un solo uso y para un nodo persistente. Deja **Reusable** y **Ephemeral** desactivados. Pega la clave en `tailscale_auth_key` en la configuración de **BYD MQTT**. Activa `publish`, guarda e inicia el complemento.
 4. Abre el registro y copia la dirección `wss://…ts.net/mqtt`. Una vez registrado el nodo, puedes vaciar `tailscale_auth_key`. La identidad se guarda en los datos persistentes del complemento.
+
+Si desinstalaste el complemento o cambiaste de una instalación local a la del repositorio, registra la nueva instalación con una clave nueva. La clave de un solo uso queda revocada tras usarla. Copia la URL WSS del nuevo registro y actualiza Electro si ha cambiado.
 
 ## Configurar MQTT en Electro
 

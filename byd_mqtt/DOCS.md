@@ -1,4 +1,4 @@
-# BYD MQTT 1.0.1
+# BYD MQTT 1.0.2
 
 [Español](DOCS.es.md)
 
@@ -8,6 +8,8 @@
 2. Open the [Tailscale DNS settings](https://console.tailscale.com/admin/dns) and enable MagicDNS and HTTPS certificates. In [Access controls](https://console.tailscale.com/admin/acls), [authorize Funnel](https://tailscale.com/docs/features/tailscale-funnel#funnel-node-attribute) for the registration identity.
 3. Generate a [single-use, non-ephemeral auth key](https://console.tailscale.com/admin/settings/keys). Paste it into `tailscale_auth_key` on the **BYD MQTT** configuration page. Enable `publish`, save, and start the add-on.
 4. Open the add-on log and copy the `wss://…ts.net/mqtt` URL. Once registration succeeds, you can clear `tailscale_auth_key` from the configuration. The node identity is stored in the add-on's persistent data.
+
+If you uninstalled the add-on or switched from a local installation to the repository, register the new installation with a fresh auth key. A single-use key is revoked after use. Copy the WSS URL from the new log and update Electro if it changed.
 
 ## Configure MQTT in Electro
 

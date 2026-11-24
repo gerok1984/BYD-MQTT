@@ -1,5 +1,10 @@
 # Changelog / Historial de cambios
 
+## 1.0.2
+
+- Added the Home Assistant store logo and clarified Tailscale registration after a fresh install.
+- Se añade el logotipo de la tienda y se aclara el registro en Tailscale tras una instalación nueva.
+
 ## 1.0.1
 
 - Renamed the add-on folder to `byd_mqtt` and documented Electro MQTT setup in English and Spanish.
