@@ -1,0 +1,18 @@
+name: BYD MQTT
+version: "1.0"
+slug: dolphin_mqtt_funnel
+description: Remote MQTT over WebSockets for Mosquitto via Tailscale Funnel.
+arch:
+  - amd64
+  - aarch64
+startup: application
+boot: manual
+init: false
+services:
+  - mqtt:need
+options:
+  publish: false
+  tailscale_auth_key: ""
+schema:
+  publish: bool
+  tailscale_auth_key: password?

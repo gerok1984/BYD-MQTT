@@ -1,0 +1,27 @@
+# BYD MQTT 1.0
+
+[English](DOCS.md)
+
+## Configuración
+
+1. Inicia el complemento oficial **Mosquitto broker**. Configura un usuario MQTT dedicado con contraseña fuerte y limita sus permisos (ACL) a los topics que necesite. La URL pública WebSocket pasa las credenciales a Mosquitto, que aplica sus reglas de acceso.
+2. En la [configuración DNS de Tailscale](https://console.tailscale.com/admin/dns), activa MagicDNS y los certificados HTTPS. Desde [Access controls](https://console.tailscale.com/admin/acls), [autoriza Funnel](https://tailscale.com/docs/features/tailscale-funnel#funnel-node-attribute) para la identidad que registre el complemento.
+3. Genera una [clave de registro](https://console.tailscale.com/admin/settings/keys) de un solo uso y para un nodo persistente. Deja **Reusable** y **Ephemeral** desactivados. Pega la clave en `tailscale_auth_key` en la configuración de **BYD MQTT**. Activa `publish`, guarda e inicia el complemento.
+4. Abre el registro y copia la dirección `wss://…ts.net/mqtt`. Una vez registrado el nodo, puedes vaciar `tailscale_auth_key`. La identidad se guarda en los datos persistentes del complemento.
+
+## Prueba y cambio de servidor
+
+1. Desde una red externa, usa un cliente MQTT compatible con WebSocket. Introduce la URL completa, el puerto **443**, la ruta **/mqtt** y las credenciales de Mosquitto. Para probar desde el móvil, desactiva el Wi-Fi y desconecta Tailscale en el teléfono.
+2. Comprueba que se rechaza una contraseña incorrecta. Con el usuario autorizado, suscríbete a un topic de prueba permitido y publica un mensaje en el mismo topic.
+3. Guarda la configuración del broker anterior antes de cambiar el Dolphin. Introduce la nueva dirección, comprueba que llega telemetría nueva a Home Assistant y repite la prueba con los datos móviles del coche.
+
+## Actualizar una instalación local
+
+Detén el complemento. Reemplaza los archivos en `/addons/dolphin_mqtt_funnel/` con los de esta versión, recarga la tienda y pulsa **Actualizar** en la ficha del complemento instalado. Vuelve a iniciarlo. Actualiza sobre la instalación existente para conservar la identidad del nodo y su URL.
+
+## Solución de problemas
+
+- **Error de Funnel o TLS.** Comprueba MagicDNS, los certificados HTTPS y la política de Funnel. El DNS público puede tardar unos minutos en propagarse.
+- **HTTP 502.** Comprueba que Mosquitto está en marcha y que su listener WebSocket interno está disponible en el puerto 1884.
+- **Error de autenticación MQTT.** Comprueba el usuario y la contraseña de Mosquitto. Si conecta pero fallan los mensajes, revisa los permisos del topic.
+- **Cerrar el acceso externo.** Detén el complemento y guarda `publish: false`. El acceso público requiere que el complemento esté en ejecución.
