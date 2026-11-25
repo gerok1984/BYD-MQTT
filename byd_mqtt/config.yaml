@@ -1,5 +1,5 @@
 name: BYD MQTT
-version: "1.1.0"
+version: "1.1.1"
 url: https://github.com/gerok1984/BYD-MQTT
 slug: dolphin_mqtt_funnel
 description: Remote MQTT via Tailscale Funnel or EMQX Cloud (beta).

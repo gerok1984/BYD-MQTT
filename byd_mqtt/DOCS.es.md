@@ -1,4 +1,4 @@
-# BYD MQTT 1.1.0
+# BYD MQTT 1.1.1
 
 [English](https://github.com/gerok1984/BYD-MQTT/blob/main/byd_mqtt/DOCS.md) · [Português (Brasil)](https://github.com/gerok1984/BYD-MQTT/blob/main/byd_mqtt/DOCS.pt-BR.md) · [GitHub](https://github.com/gerok1984/BYD-MQTT)
 
@@ -14,6 +14,8 @@ Tailscale sigue siendo el modo predeterminado. Mantén `mode: tailscale` y activ
 Si desinstalaste el complemento o cambiaste de una instalación local a la del repositorio, registra la nueva instalación con una clave nueva. La clave de un solo uso queda revocada tras usarla. Copia la URL WSS del nuevo registro y actualiza Electro si ha cambiado.
 
 ## EMQX Cloud (beta)
+
+Para cambiar de modo, guarda el nuevo `mode`, reinicia BYD MQTT y configura Electro con el broker elegido. Puedes conservar los ajustes de ambos modos y dejar `publish` activado al usar EMQX. Ese ajuste se aplica solo a Tailscale. Al iniciar en Tailscale, el complemento vuelve a publicar Funnel con la identidad guardada del nodo.
 
 Selecciona `mode: emqx` para recibir telemetría y enviar comandos por el mismo tópico. Electro y el complemento se conectan a EMQX mediante conexiones salientes. Home Assistant sigue usando el Mosquitto local.
 

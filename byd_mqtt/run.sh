@@ -7,6 +7,7 @@ umask 077
 
 mode=$(jq -r '.mode // "tailscale"' /data/options.json)
 if [ "$mode" = emqx ]; then
+    echo "BYD MQTT: modo EMQX Cloud (beta)."
     set_tunnel_notice up
     exec python3 /usr/local/bin/emqx_bridge.py
 fi
@@ -17,6 +18,8 @@ if [ "$(jq -r '.publish // false' /data/options.json)" != true ]; then
     exit 0
 fi
 
+echo "BYD MQTT: modo Tailscale Funnel."
+
 socket=/run/dolphin-tailscale.sock
 auth_file=/run/dolphin-tailscale-auth
 tailscale_pid=
@@ -26,7 +29,16 @@ ts() {
     tailscale --socket="$socket" "$@"
 }
 
+reset_funnel() {
+    timeout 5 tailscale --socket="$socket" funnel reset
+}
+
 cleanup() {
+    if [ -n "$tailscale_pid" ] && kill -0 "$tailscale_pid" 2>/dev/null; then
+        if ! reset_funnel; then
+            echo "BYD MQTT: no se pudo retirar la publicación de Funnel al detener el complemento."
+        fi
+    fi
     if [ -n "$nginx_pid" ]; then kill "$nginx_pid" 2>/dev/null || true; fi
     if [ -n "$tailscale_pid" ]; then kill "$tailscale_pid" 2>/dev/null || true; fi
     rm -f "$auth_file"
@@ -34,11 +46,11 @@ cleanup() {
 
 on_exit() {
     local code="$1"
+    cleanup
     if [ "$code" -ne 0 ]; then
         tunnel_notice_state=
         set_tunnel_notice down "El túnel MQTT de Tailscale se ha detenido o no ha podido iniciarse. Consulta el registro del complemento. / The Tailscale MQTT tunnel stopped or failed to start. Check the add-on log."
     fi
-    cleanup
 }
 
 trap 'on_exit $?' EXIT
@@ -63,7 +75,7 @@ until ts status --json >/run/dolphin-tailscale-status; do
 done
 
 case "$(jq -r .BackendState /run/dolphin-tailscale-status)" in
-    Running|Starting)
+    Running|Starting|Stopped)
         ts up --accept-dns=false --hostname=dolphin-mqtt --timeout=45s
         ;;
     *)
@@ -80,9 +92,12 @@ esac
 nginx -t
 nginx -g 'daemon off;' &
 nginx_pid=$!
+# Funnel can restore its background configuration when the daemon starts.
+# Clear it before publishing, even after an unclean shutdown or a mode change.
+reset_funnel
 ts funnel --bg --yes http://127.0.0.1:8080
 
-dns_name=$(ts status --json | jq -er '.Self.DNSName | trimstr(".") | select(length > 0)')
+dns_name=$(ts status --json | jq -er '.Self.DNSName | rtrimstr(".") | select(length > 0)')
 echo "URL MQTT del Dolphin: wss://$dns_name/mqtt (puerto 443)."
 echo "Usa las credenciales MQTT de Mosquitto. Comprueba la conexión desde fuera de la red."
 

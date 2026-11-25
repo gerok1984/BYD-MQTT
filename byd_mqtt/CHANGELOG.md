@@ -1,5 +1,11 @@
 # Changelog / Historial de cambios
 
+## 1.1.1
+
+- Republish Funnel cleanly when restarting or switching modes, and log public and local WebSocket errors.
+- Se vuelve a publicar Funnel al reiniciar o cambiar de modo y se registran los errores del WebSocket público y local.
+- O Funnel é publicado novamente ao reiniciar ou trocar de modo, e os erros dos WebSockets público e local são registrados.
+
 ## 1.1.0
 
 - Added EMQX Cloud (beta) with one bidirectional topic and persistent Tailscale tunnel outage alerts in Home Assistant.
