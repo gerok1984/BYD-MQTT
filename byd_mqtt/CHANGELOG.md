@@ -1,5 +1,11 @@
 # Changelog / Historial de cambios
 
+## 1.2.0
+
+- Run Tailscale Funnel and EMQX Cloud simultaneously (beta), with explicit command routing.
+- Activa Tailscale Funnel y EMQX Cloud simultáneamente (beta) y permite elegir por dónde enviar cada comando.
+- Ativa Tailscale Funnel e EMQX Cloud simultaneamente (beta) e permite escolher a rota de cada comando.
+
 ## 1.1.1
 
 - Republish Funnel cleanly when restarting or switching modes, and log public and local WebSocket errors.

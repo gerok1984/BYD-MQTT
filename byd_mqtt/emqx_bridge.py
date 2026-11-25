@@ -20,7 +20,7 @@ def get_local_broker():
         return json.load(response)["data"]
 
 
-def configure_relay(source, destination, topic, label, *, from_cloud=False):
+def configure_relay(source, destination, topic, label, *, from_cloud=False, destination_topic=None):
     source.ready = threading.Event()
 
     def on_connect(client, userdata, flags, reason, properties):
@@ -52,7 +52,8 @@ def configure_relay(source, destination, topic, label, *, from_cloud=False):
         if (not from_cloud and message.retain) or not destination.ready.is_set():
             return
         destination.publish(
-            message.topic, message.payload, qos=0, retain=from_cloud and message.retain
+            destination_topic or message.topic, message.payload,
+            qos=0, retain=from_cloud and message.retain
         )
 
     source.on_connect = on_connect
@@ -67,11 +68,13 @@ def main():
         options = json.load(options_file)
     host = options.get("emqx_host", "").strip()
     topic = options.get("electro_topic", "").strip()
+    both_active = options.get("mode") == "both" and options.get("publish") is True
+    command_topic = f"{topic}/emqx_command" if both_active else topic
     username = options.get("emqx_username")
     password = options.get("emqx_password")
     if not re.fullmatch(r"[A-Za-z0-9-]+(?:\.[A-Za-z0-9-]+)+", host):
         raise SystemExit("BYD MQTT: emqx_host debe contener solo el nombre DNS de EMQX.")
-    if not topic or any(character in topic for character in "+#\0") or len(topic.encode()) > 65535:
+    if not topic or any(character in topic for character in "+#\0") or len(command_topic.encode()) > 65535:
         raise SystemExit("BYD MQTT: electro_topic debe ser un tópico MQTT exacto, sin comodines.")
     if not username or not password:
         raise SystemExit("BYD MQTT: configura emqx_username y emqx_password.")
@@ -91,7 +94,9 @@ def main():
     cloud.username_pw_set(username, password)
     cloud.tls_set()
 
-    configure_relay(local, cloud, topic, "Mosquitto → EMQX")
+    configure_relay(
+        local, cloud, command_topic, "Mosquitto → EMQX", destination_topic=topic,
+    )
     configure_relay(cloud, local, topic, "EMQX → Mosquitto", from_cloud=True)
 
     stop = threading.Event()

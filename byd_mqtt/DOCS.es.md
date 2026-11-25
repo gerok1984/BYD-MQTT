@@ -1,4 +1,4 @@
-# BYD MQTT 1.1.1
+# BYD MQTT 1.2.0
 
 [English](https://github.com/gerok1984/BYD-MQTT/blob/main/byd_mqtt/DOCS.md) · [Português (Brasil)](https://github.com/gerok1984/BYD-MQTT/blob/main/byd_mqtt/DOCS.pt-BR.md) · [GitHub](https://github.com/gerok1984/BYD-MQTT)
 
@@ -26,6 +26,12 @@ Selecciona `mode: emqx` para recibir telemetría y enviar comandos por el mismo 
 5. Inicia el complemento. En Electro, configura el servidor EMQX, el puerto **8883**, **Usar SSL** activado y las credenciales de Electro. Conserva el nombre del dispositivo para mantener el tópico.
 
 Comprueba en el registro que hay suscripciones en ambos sentidos. Con el Wi-Fi del coche apagado, confirma que llega telemetría nueva a Home Assistant y envía un comando que ya uses. Comprueba que Electro lo ejecuta. Publica los comandos con la retención desactivada. Usa un puente por tópico.
+
+## Ambos modos (beta)
+
+Selecciona `mode: both`, mantén `publish: true` y reinicia el complemento. Configura cada publicación MQTT de Electro con su broker y sus credenciales. Ambas pueden usar el mismo tópico de Electro. Home Assistant recibe la telemetría en ese tópico y recibirá las dos publicaciones si Electro envía la misma actualización dos veces.
+
+Para cada orden de Home Assistant, elige un tópico MQTT. Usa el tópico original para enviarla por Tailscale o añade `/emqx_command` al final para enviarla por EMQX. Por ejemplo, publica en `electro/telemetry/dolphin/data/emqx_command`. El puente la envía a EMQX en `electro/telemetry/dolphin/data`. Mantén la retención desactivada. En este modo, las automatizaciones existentes siguen enviando las órdenes por Tailscale.
 
 ## Aviso de caída del túnel de Tailscale
 

@@ -1,4 +1,4 @@
-# BYD MQTT 1.1.1
+# BYD MQTT 1.2.0
 
 [Español](https://github.com/gerok1984/BYD-MQTT/blob/main/byd_mqtt/DOCS.es.md) · [Português (Brasil)](https://github.com/gerok1984/BYD-MQTT/blob/main/byd_mqtt/DOCS.pt-BR.md) · [GitHub](https://github.com/gerok1984/BYD-MQTT)
 
@@ -26,6 +26,12 @@ Select `mode: emqx` to relay telemetry and commands on the same topic. Both Elec
 5. Start the add-on. In Electro, use the EMQX hostname, port **8883**, **Use SSL** on and the Electro credentials. Keep the device name so the topic stays the same.
 
 Check the add-on log for subscriptions in both directions. With Wi-Fi off in the car, check for new telemetry in Home Assistant and send an existing command. Confirm that Electro executes it. Publish commands with retain off. Use one bridge per topic.
+
+## Both modes (beta)
+
+Select `mode: both`, keep `publish: true`, and restart the add-on. Configure each Electro MQTT publication with its own broker and credentials. Both can use the same Electro topic. Home Assistant receives telemetry on that topic, including both publications if Electro sends the same update twice.
+
+For each Home Assistant command, choose one MQTT topic. Use the original topic to send it through Tailscale, or append `/emqx_command` to send it through EMQX. For example, publish to `electro/telemetry/dolphin/data/emqx_command`. The bridge sends it to EMQX on `electro/telemetry/dolphin/data`. Keep retain off. Existing automations keep sending through Tailscale in this mode.
 
 ## Tailscale tunnel outage alert
 

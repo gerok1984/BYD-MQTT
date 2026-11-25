@@ -1,7 +1,7 @@
 configuration:
   mode:
     name: Modo de conexión
-    description: Elige Tailscale Funnel o EMQX Cloud (beta).
+    description: Elige Tailscale Funnel, EMQX Cloud (beta), o ambos.
   electro_topic:
     name: Tópico de Electro
     description: Copia el tópico exacto que muestra Electro. Se usa para datos y comandos.
