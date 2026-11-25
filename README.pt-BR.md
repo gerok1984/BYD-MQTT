@@ -2,7 +2,7 @@
 
 [English](README.md) · [Español](README.es.md)
 
-BYD MQTT é um complemento para o Home Assistant OS que fornece a um cliente MQTT remoto uma URL WebSocket segura para acessar o broker oficial Mosquitto. Foi desenvolvido para o BYD Dolphin e funciona com clientes compatíveis com MQTT via WebSocket. O Tailscale Funnel encaminha o tráfego para `core-mosquitto:1884`. Você pode continuar usando o Nabu Casa para acessar o Home Assistant. Não é necessário abrir portas no roteador.
+BYD MQTT é um complemento para o Home Assistant OS que fornece a um cliente MQTT remoto uma URL WebSocket segura para acessar o broker oficial Mosquitto. Foi desenvolvido para usar o Electro em um BYD Dolphin, mas aceita qualquer cliente compatível com MQTT via WebSocket. O Tailscale Funnel encaminha o tráfego para `core-mosquitto:1884`. Você pode continuar usando o Nabu Casa para acessar o Home Assistant. Não é necessário abrir portas no roteador.
 
 ## Requisitos
 
