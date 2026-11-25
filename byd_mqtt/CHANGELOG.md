@@ -1,5 +1,11 @@
 # Changelog / Historial de cambios
 
+## 1.0.5
+
+- Use direct GitHub links for translated guides in Home Assistant.
+- Los enlaces a las traducciones en Home Assistant abren las guías en GitHub.
+- Os links para as traduções no Home Assistant abrem os guias no GitHub.
+
 ## 1.0.4
 
 - Simplified the Tailscale instructions and added Brazilian Portuguese documentation.

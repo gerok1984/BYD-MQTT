@@ -1,5 +1,6 @@
 name: BYD MQTT
-version: "1.0.4"
+version: "1.0.5"
+url: https://github.com/gerok1984/BYD-MQTT
 slug: dolphin_mqtt_funnel
 description: Remote MQTT over WebSockets for Mosquitto via Tailscale Funnel.
 arch:

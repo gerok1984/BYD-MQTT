@@ -1,6 +1,6 @@
-# BYD MQTT 1.0.4
+# BYD MQTT 1.0.5
 
-[English](DOCS.md) · [Português (Brasil)](DOCS.pt-BR.md)
+[English](https://github.com/gerok1984/BYD-MQTT/blob/main/byd_mqtt/DOCS.md) · [Português (Brasil)](https://github.com/gerok1984/BYD-MQTT/blob/main/byd_mqtt/DOCS.pt-BR.md) · [GitHub](https://github.com/gerok1984/BYD-MQTT)
 
 ## Configuración
 
