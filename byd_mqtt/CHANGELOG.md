@@ -1,5 +1,11 @@
 # Changelog / Historial de cambios
 
+## 1.1.0
+
+- Added EMQX Cloud (beta) with one bidirectional topic and persistent Tailscale tunnel outage alerts in Home Assistant.
+- Se añade EMQX Cloud (beta) con un tópico bidireccional y avisos persistentes de caída del túnel de Tailscale en Home Assistant.
+- Adicionado EMQX Cloud (beta) com um tópico bidirecional e avisos persistentes de falha do túnel Tailscale no Home Assistant.
+
 ## 1.0.5
 
 - Use direct GitHub links for translated guides in Home Assistant.

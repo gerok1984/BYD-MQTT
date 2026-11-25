@@ -1,0 +1,16 @@
+configuration:
+  mode:
+    name: Modo de conexão
+    description: Escolha Tailscale Funnel ou EMQX Cloud (beta).
+  electro_topic:
+    name: Tópico do Electro
+    description: Copie o tópico exato exibido no Electro. Ele é usado para dados e comandos.
+  emqx_host:
+    name: Servidor EMQX
+    description: Informe o nome DNS da implantação no modo EMQX.
+  emqx_username:
+    name: Usuário EMQX
+    description: Informe o usuário MQTT da ponte.
+  emqx_password:
+    name: Senha EMQX
+    description: Informe a senha MQTT da ponte.

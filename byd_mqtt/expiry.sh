@@ -4,7 +4,7 @@ expiry_notice_state=
 expiry_notice_id=byd_mqtt_tailscale_key_expiry
 expiry_notice_days=14
 
-expiry_notification() {
+ha_notification() {
     local action="$1" payload="$2"
     printf 'Authorization: Bearer %s\n' "$SUPERVISOR_TOKEN" |
         curl --silent --fail --max-time 5 --header @- \
@@ -36,7 +36,7 @@ check_node_expiry() {
     [ "$condition" != "$expiry_notice_state" ] || return 0
     if [ "$condition" = clear ]; then
         payload=$(jq -nc --arg id "$expiry_notice_id" '{notification_id: $id}')
-        if [ -z "${SUPERVISOR_TOKEN:-}" ] || expiry_notification dismiss "$payload"; then
+        if [ -z "${SUPERVISOR_TOKEN:-}" ] || ha_notification dismiss "$payload"; then
             expiry_notice_state=$condition
         fi
         return 0
@@ -50,7 +50,7 @@ check_node_expiry() {
     echo "BYD MQTT: $headline ($expiry). https://console.tailscale.com/admin/machines"
     payload=$(jq -nc --arg id "$expiry_notice_id" --arg message "$message" \
         '{notification_id: $id, title: "BYD MQTT", message: $message}')
-    if [ -z "${SUPERVISOR_TOKEN:-}" ] || expiry_notification create "$payload"; then
+    if [ -z "${SUPERVISOR_TOKEN:-}" ] || ha_notification create "$payload"; then
         expiry_notice_state=$condition
     fi
 }

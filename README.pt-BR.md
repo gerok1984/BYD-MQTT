@@ -4,11 +4,13 @@
 
 BYD MQTT é um complemento para o Home Assistant OS que fornece a um cliente MQTT remoto uma URL WebSocket segura para acessar o broker oficial Mosquitto. Foi desenvolvido para usar o Electro em um BYD Dolphin, mas aceita qualquer cliente compatível com MQTT via WebSocket. O Tailscale Funnel encaminha o tráfego para `core-mosquitto:1884`. Você pode continuar usando o Nabu Casa para acessar o Home Assistant. Não é necessário abrir portas no roteador.
 
+Você também pode escolher o **EMQX Cloud (beta)** para receber telemetria e enviar comandos pelo mesmo tópico. O Tailscale avisa sobre falhas no túnel com uma notificação persistente no Home Assistant.
+
 ## Requisitos
 
 - Home Assistant OS em amd64 ou aarch64 e o complemento oficial **Mosquitto broker** em execução.
-- Uma conta no [Tailscale](https://tailscale.com/) com [MagicDNS e certificados HTTPS](https://tailscale.com/docs/how-to/set-up-https-certificates) ativados e [permissão para usar o Funnel](https://tailscale.com/docs/features/tailscale-funnel#funnel-node-attribute) para a identidade que vai registrar o complemento.
-- Um cliente compatível com MQTT via WebSocket seguro (WSS) e uma conta MQTT no Mosquitto.
+- No modo Tailscale, use uma conta do [Tailscale](https://tailscale.com/) com [MagicDNS e certificados HTTPS](https://tailscale.com/docs/how-to/set-up-https-certificates) ativados e [permissão para usar o Funnel](https://tailscale.com/docs/features/tailscale-funnel#funnel-node-attribute) para a identidade que vai registrar o complemento.
+- No modo Tailscale, use um cliente compatível com MQTT via WebSocket seguro (WSS) e uma conta MQTT no Mosquitto.
 
 ## Instalação
 

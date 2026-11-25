@@ -2,8 +2,18 @@
 set -eu
 umask 077
 
+. /usr/local/bin/expiry.sh
+. /usr/local/bin/tunnel-health.sh
+
+mode=$(jq -r '.mode // "tailscale"' /data/options.json)
+if [ "$mode" = emqx ]; then
+    set_tunnel_notice up
+    exec python3 /usr/local/bin/emqx_bridge.py
+fi
+
 if [ "$(jq -r '.publish // false' /data/options.json)" != true ]; then
     echo "Publicación desactivada. Configura Tailscale y activa publish para publicar /mqtt."
+    set_tunnel_notice up
     exit 0
 fi
 
@@ -22,7 +32,16 @@ cleanup() {
     rm -f "$auth_file"
 }
 
-trap cleanup EXIT
+on_exit() {
+    local code="$1"
+    if [ "$code" -ne 0 ]; then
+        tunnel_notice_state=
+        set_tunnel_notice down "El túnel MQTT de Tailscale se ha detenido o no ha podido iniciarse. Consulta el registro del complemento. / The Tailscale MQTT tunnel stopped or failed to start. Check the add-on log."
+    fi
+    cleanup
+}
+
+trap 'on_exit $?' EXIT
 trap 'exit 0' INT TERM
 
 # Conserva la identidad existente y da a Tailscale una ruta para los certificados TLS.
@@ -67,13 +86,17 @@ dns_name=$(ts status --json | jq -er '.Self.DNSName | trimstr(".") | select(leng
 echo "URL MQTT del Dolphin: wss://$dns_name/mqtt (puerto 443)."
 echo "Usa las credenciales MQTT de Mosquitto. Comprueba la conexión desde fuera de la red."
 
-. /usr/local/bin/expiry.sh
 next_expiry_check=0
+next_health_check=0
 while kill -0 "$tailscale_pid" 2>/dev/null && kill -0 "$nginx_pid" 2>/dev/null; do
     now=$(date +%s)
     if [ "$now" -ge "$next_expiry_check" ]; then
         check_node_expiry
         next_expiry_check=$((now + 3600))
+    fi
+    if [ "$now" -ge "$next_health_check" ]; then
+        check_tunnel
+        next_health_check=$((now + 30))
     fi
     sleep 2
 done

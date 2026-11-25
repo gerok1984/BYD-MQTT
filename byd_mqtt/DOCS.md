@@ -1,8 +1,10 @@
-# BYD MQTT 1.0.5
+# BYD MQTT 1.1.0
 
 [Español](https://github.com/gerok1984/BYD-MQTT/blob/main/byd_mqtt/DOCS.es.md) · [Português (Brasil)](https://github.com/gerok1984/BYD-MQTT/blob/main/byd_mqtt/DOCS.pt-BR.md) · [GitHub](https://github.com/gerok1984/BYD-MQTT)
 
-## Configure
+## Configure Tailscale Funnel
+
+Tailscale remains the default. Keep `mode: tailscale` and set `publish: true` to use it.
 
 1. Start the official **Mosquitto broker** add-on. Set up a dedicated MQTT username and strong password, with ACLs limited to the relevant topics. The public WebSocket endpoint passes MQTT credentials to Mosquitto, which applies its regular access controls.
 2. Open the [Tailscale DNS settings](https://console.tailscale.com/admin/dns) and enable MagicDNS and HTTPS certificates. In [Access controls](https://console.tailscale.com/admin/acls), [authorize Funnel](https://tailscale.com/docs/features/tailscale-funnel#funnel-node-attribute) for the registration identity.
@@ -10,6 +12,22 @@
 4. Open the add-on log and copy the `wss://…ts.net/mqtt` URL. Once registration succeeds, you can clear `tailscale_auth_key` from the configuration. The node identity is stored in the add-on's persistent data.
 
 If you uninstalled the add-on or switched from a local installation to the repository, register the new installation with a fresh auth key. A single-use key is revoked after use. Copy the WSS URL from the new log and update Electro if it changed.
+
+## EMQX Cloud (beta)
+
+Select `mode: emqx` to relay telemetry and commands on the same topic. Both Electro and the add-on connect out to EMQX. Home Assistant keeps using the local Mosquitto broker.
+
+1. Create an [EMQX Cloud Serverless deployment](https://docs.emqx.com/en/cloud/latest/create/serverless.html). Create separate MQTT credentials for Electro and the add-on, with publish and subscribe permissions on the exact topic.
+2. EMQX hostname, without a scheme, port or path → `emqx_host`.
+3. EMQX credentials for the bridge → `emqx_username` / `emqx_password`.
+4. Exact topic displayed under **Edit publication → Topic** in Electro, for example `electro/telemetry/dolphin/data` → `electro_topic`.
+5. Start the add-on. In Electro, use the EMQX hostname, port **8883**, **Use SSL** on and the Electro credentials. Keep the device name so the topic stays the same.
+
+Check the add-on log for subscriptions in both directions. With Wi-Fi off in the car, check for new telemetry in Home Assistant and send an existing command. Confirm that Electro executes it. Publish commands with retain off. Use one bridge per topic.
+
+## Tailscale tunnel outage alert
+
+The add-on checks the public MQTT WebSocket endpoint every 30 seconds. Three consecutive failures create a persistent notification under **Notifications** in Home Assistant. An unexpected process exit or startup failure triggers an immediate alert if Home Assistant is reachable. When the endpoint responds again, the add-on dismisses the existing notification. This checks the tunnel up to Mosquitto, independent of whether the car is online.
 
 ## Tailscale key expiry
 

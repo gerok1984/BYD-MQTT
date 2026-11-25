@@ -1,0 +1,16 @@
+configuration:
+  mode:
+    name: Connection mode
+    description: Choose Tailscale Funnel or EMQX Cloud (beta).
+  electro_topic:
+    name: Electro topic
+    description: Copy the exact topic shown in Electro. Used for both telemetry and commands.
+  emqx_host:
+    name: EMQX hostname
+    description: Enter the DNS name of your EMQX deployment in EMQX mode.
+  emqx_username:
+    name: EMQX username
+    description: Enter the MQTT username for the bridge.
+  emqx_password:
+    name: EMQX password
+    description: Enter the MQTT password for the bridge.

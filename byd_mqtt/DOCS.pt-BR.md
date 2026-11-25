@@ -1,8 +1,10 @@
-# BYD MQTT 1.0.5
+# BYD MQTT 1.1.0
 
 [English](https://github.com/gerok1984/BYD-MQTT/blob/main/byd_mqtt/DOCS.md) · [Español](https://github.com/gerok1984/BYD-MQTT/blob/main/byd_mqtt/DOCS.es.md) · [GitHub](https://github.com/gerok1984/BYD-MQTT)
 
-## Configuração
+## Configurar o Tailscale Funnel
+
+O Tailscale continua sendo o modo padrão. Mantenha `mode: tailscale` e ative `publish` para usá-lo.
 
 1. Inicie o complemento oficial **Mosquitto broker**. Crie um usuário MQTT dedicado com uma senha forte e restrinja suas permissões (ACLs) aos tópicos necessários. O Mosquitto valida as credenciais enviadas pela conexão WebSocket.
 2. Nas [configurações de DNS do Tailscale](https://console.tailscale.com/admin/dns), ative o MagicDNS e os certificados HTTPS. Em [Access controls](https://console.tailscale.com/admin/acls), [autorize o Funnel](https://tailscale.com/docs/features/tailscale-funnel#funnel-node-attribute) para a identidade que vai registrar o complemento.
@@ -10,6 +12,22 @@
 4. Abra o log do complemento e copie a URL `wss://…ts.net/mqtt`. Após registrar o nó, você pode apagar o valor de `tailscale_auth_key`. A identidade do nó fica salva nos dados persistentes do complemento.
 
 Se você desinstalou o complemento ou mudou de uma instalação local para a do repositório, registre a nova instalação com uma nova chave. Confira a URL WSS no log e atualize o Electro caso ela tenha mudado.
+
+## EMQX Cloud (beta)
+
+Selecione `mode: emqx` para receber telemetria e enviar comandos pelo mesmo tópico. O Electro e o complemento iniciam conexões de saída com o EMQX. O Home Assistant continua usando o Mosquitto local.
+
+1. Crie uma [implantação Serverless no EMQX Cloud](https://docs.emqx.com/en/cloud/latest/create/serverless.html). Crie credenciais separadas para o Electro e para o complemento, com permissão para publicar e assinar o tópico exato.
+2. Nome do servidor EMQX, sem protocolo, porta ou caminho → `emqx_host`.
+3. Credenciais do EMQX para a ponte → `emqx_username` / `emqx_password`.
+4. Tópico exato exibido em **Editar publicação → Tópico** no Electro, por exemplo `electro/telemetry/dolphin/data` → `electro_topic`.
+5. Inicie o complemento. No Electro, configure o servidor EMQX, a porta **8883**, **Usar SSL** ativado e as credenciais do Electro. Mantenha o nome do dispositivo para preservar o tópico.
+
+Confira no registro as assinaturas nas duas direções. Com o Wi-Fi do carro desligado, confirme a chegada de novos dados no Home Assistant e envie um comando que você já usa. Confirme que o Electro o executa. Publique os comandos com a retenção desativada. Use uma ponte por tópico.
+
+## Aviso de falha do túnel Tailscale
+
+O complemento verifica o endpoint MQTT público por WebSocket a cada 30 segundos. Após três falhas consecutivas, cria uma notificação persistente em **Notificações** no Home Assistant. Se a inicialização falhar ou um processo parar, o aviso é imediato quando o Home Assistant está acessível. O aviso é removido quando o endpoint volta a responder. A verificação cobre o túnel até o Mosquitto e funciona mesmo se o carro estiver desconectado.
 
 ## Expiração das chaves do Tailscale
 
