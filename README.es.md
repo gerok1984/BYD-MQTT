@@ -6,6 +6,12 @@ BYD MQTT es un complemento para Home Assistant OS que da a un cliente MQTT remot
 
 También puedes elegir **EMQX Cloud (beta)** para recibir telemetría y enviar comandos por un mismo tópico. Tailscale avisa de las caídas del túnel con una notificación persistente de Home Assistant.
 
+## Modos de conexión
+
+Elige **Tailscale**, **EMQX Cloud (beta)** o **Ambos (beta)** en los ajustes del complemento. Para usar Ambos, deja `publish: true` y reinicia el complemento. En Electro y en el campo **Tópico de Electro** del complemento, usa el tópico original, por ejemplo `electro/telemetry/dolphin/data`.
+
+En modo Ambos, publica las órdenes desde Home Assistant en el tópico original para Tailscale o en `electro/telemetry/dolphin/data/emqx_command` para EMQX. Usa el sufijo solo en la acción `mqtt.publish` de Home Assistant. [Guía de configuración](byd_mqtt/DOCS.es.md#ambos-modos-beta)
+
 ## Requisitos
 
 - Home Assistant OS en amd64 o aarch64 y el complemento oficial **Mosquitto broker** iniciado.
