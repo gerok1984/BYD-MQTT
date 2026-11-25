@@ -1,6 +1,6 @@
-# BYD MQTT 1.0.3
+# BYD MQTT 1.0.4
 
-[Español](DOCS.es.md)
+[Español](DOCS.es.md) · [Português (Brasil)](DOCS.pt-BR.md)
 
 ## Configure
 
@@ -13,7 +13,7 @@ If you uninstalled the add-on or switched from a local installation to the repos
 
 ## Tailscale key expiry
 
-- **Registration key:** In [Tailscale → Keys](https://console.tailscale.com/admin/settings/keys), select **Generate auth key** and leave **Reusable** and **Ephemeral** off. The default and maximum validity is 90 days before use, and Tailscale revokes a single-use key as soon as it registers a node. You can clear it from the add-on after registration.
+- **Registration key:** In [Tailscale → Keys](https://console.tailscale.com/admin/settings/keys), select **Generate auth key** and leave **Reusable** and **Ephemeral** off. Tailscale revokes a single-use key as soon as it registers a node. You can clear it from the add-on after registration.
 - **Node key:** The registered device has its own key, which expires after 180 days by default. Check the actual setting and expiry for your node in [Tailscale → Machines](https://console.tailscale.com/admin/machines).
 - **Reminder:** While the add-on is running, it checks the node's reported expiry about once an hour. At 14 days or less, it writes a log entry and creates a persistent notification in Home Assistant with links to Machines and the [reauthentication instructions](https://tailscale.com/docs/features/access-control/key-expiry).
 
@@ -39,9 +39,6 @@ Listen to the displayed topic in Home Assistant's MQTT integration to confirm th
 2. Confirm that an invalid password is rejected. With the authorized account, subscribe to a permitted test topic and publish a message to the same topic.
 3. Save your existing broker settings before changing the Dolphin. Switch to the new URL, confirm that fresh telemetry arrives in Home Assistant, and repeat the test using the car's mobile data.
 
-## Upgrade a local installation
-
-Stop the add-on. If you still have the previous local folder, rename it to `byd_mqtt` first. Replace the files in `/addons/byd_mqtt/` with those from this release, reload the store, and select **Update** on the installed add-on. Start it again. Updating the existing installation preserves the stored Tailscale node identity. 
 
 ## Troubleshooting
 

@@ -1,6 +1,6 @@
-# BYD MQTT 1.0.3
+# BYD MQTT 1.0.4
 
-[English](DOCS.md)
+[English](DOCS.md) · [Português (Brasil)](DOCS.pt-BR.md)
 
 ## Configuración
 
@@ -13,7 +13,7 @@ Si desinstalaste el complemento o cambiaste de una instalación local a la del r
 
 ## Caducidad de las claves de Tailscale
 
-- **Clave de registro:** En [Tailscale → Keys](https://console.tailscale.com/admin/settings/keys), pulsa **Generate auth key** y deja **Reusable** y **Ephemeral** desactivados. Su validez predeterminada y máxima antes de usarla es de 90 días. Tailscale revoca una clave de un solo uso en cuanto registra un nodo. Después puedes vaciar ese campo en el complemento.
+- **Clave de registro:** En [Tailscale → Keys](https://console.tailscale.com/admin/settings/keys), pulsa **Generate auth key** y deja **Reusable** y **Ephemeral** desactivados. Tailscale revoca una clave de un solo uso en cuanto registra un nodo. Después puedes vaciar ese campo en el complemento.
 - **Clave del nodo:** El dispositivo registrado tiene su propia clave, que caduca a los 180 días por defecto. Consulta el ajuste y la fecha reales de tu nodo en [Tailscale → Machines](https://console.tailscale.com/admin/machines).
 - **Aviso:** Mientras el complemento está en marcha, comprueba la fecha que informa Tailscale aproximadamente cada hora. Cuando quedan 14 días o menos, escribe un aviso en el registro y crea una notificación persistente en Home Assistant con enlaces a Machines y a las [instrucciones de renovación](https://tailscale.com/docs/features/access-control/key-expiry).
 
@@ -39,9 +39,6 @@ Escucha el tópico que muestra Electro desde la integración MQTT de Home Assist
 2. Comprueba que se rechaza una contraseña incorrecta. Con el usuario autorizado, suscríbete a un topic de prueba permitido y publica un mensaje en el mismo topic.
 3. Guarda la configuración del broker anterior antes de cambiar el Dolphin. Introduce la nueva dirección, comprueba que llega telemetría nueva a Home Assistant y repite la prueba con los datos móviles del coche.
 
-## Actualizar una instalación local
-
-Detén el complemento. Si conservas la carpeta local de la versión anterior, renómbrala a `byd_mqtt` antes de copiar los archivos. Reemplaza los archivos en `/addons/byd_mqtt/` con los de esta versión, recarga la tienda y pulsa **Actualizar** en la ficha del complemento instalado. Vuelve a iniciarlo. Actualiza sobre la instalación existente para conservar la identidad del nodo y su URL.
 
 ## Solución de problemas
 

@@ -1,5 +1,11 @@
 # Changelog / Historial de cambios
 
+## 1.0.4
+
+- Simplified the Tailscale instructions and added Brazilian Portuguese documentation.
+- Se simplifican las instrucciones de Tailscale y se añade documentación en portugués de Brasil.
+- As instruções do Tailscale foram simplificadas e a documentação em português do Brasil foi adicionada.
+
 ## 1.0.3
 
 - Added a Home Assistant node-key expiry reminder and documented both Tailscale key lifetimes.

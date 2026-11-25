@@ -1,6 +1,6 @@
 # BYD MQTT
 
-[Español](README.es.md)
+[Español](README.es.md) · [Português (Brasil)](README.pt-BR.md)
 
 BYD MQTT is a Home Assistant OS add-on that gives a remote MQTT client a secure WebSocket URL for the official Mosquitto broker. It was built for the BYD Dolphin but works with compatible MQTT-over-WebSocket clients. It forwards MQTT traffic to `core-mosquitto:1884` through Tailscale Funnel. It requires no router port forwarding. You can keep using Nabu Casa to access Home Assistant.
 
@@ -16,7 +16,7 @@ BYD MQTT is a Home Assistant OS add-on that gives a remote MQTT client a secure 
 2. Find **BYD MQTT** in the store and install it.
 3. Follow the [configuration and testing guide](byd_mqtt/DOCS.md).
 
-For a local installation, copy the `byd_mqtt` folder to `/addons/` and reload the store. If you already installed the local build, update in place using the [upgrade instructions](byd_mqtt/DOCS.md#upgrade-a-local-installation) to keep your Tailscale node and URL.
+For a local installation, copy the `byd_mqtt` folder to `/addons/` and reload the store.
 
 Funnel gives the MQTT endpoint a public URL. Mosquitto authenticates the connection and applies its existing permissions. Keep anonymous access disabled and use a dedicated account limited to the MQTT topics the client needs.
 
