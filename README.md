@@ -31,3 +31,7 @@ Funnel gives the MQTT endpoint a public URL. Mosquitto authenticates the connect
 ## Electro MQTT setup
 
 The add-on was built for the [Electro](https://www.electro.app.br/) app. [Electro MQTT setup](byd_mqtt/DOCS.md#configure-mqtt-in-electro).
+
+## Acknowledgments
+
+Thanks to [@BrunoNascimentoo](https://t.me/BrunoNascimentoo) on Telegram for sharing the guide this project's EMQX Cloud setup is based on.

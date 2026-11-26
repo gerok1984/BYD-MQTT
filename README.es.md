@@ -31,3 +31,7 @@ Funnel da al servicio MQTT una URL pública. Mosquitto autentica la conexión y 
 ## Configuración MQTT de Electro
 
 El complemento se creó para la app [Electro](https://www.electro.app.br/). [Configuración MQTT de Electro](byd_mqtt/DOCS.es.md#configurar-mqtt-en-electro).
+
+## Agradecimientos
+
+Gracias a [@BrunoNascimentoo](https://t.me/BrunoNascimentoo) de Telegram por compartir el manual en el que se basa la configuración de EMQX Cloud de este proyecto.
