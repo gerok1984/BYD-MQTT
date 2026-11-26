@@ -1,5 +1,11 @@
 # Changelog / Historial de cambios
 
+## 1.2.1
+
+- Removed the beta label from standalone EMQX Cloud mode after a successful vehicle test.
+- Se elimina la etiqueta beta del modo EMQX Cloud tras una prueba satisfactoria con el coche.
+- Removido o rótulo beta do modo EMQX Cloud após um teste bem-sucedido no carro.
+
 ## 1.2.0
 
 - Run Tailscale Funnel and EMQX Cloud simultaneously (beta), with explicit command routing.

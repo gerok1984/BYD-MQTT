@@ -11,7 +11,7 @@ publish=$(jq -r '.publish // false' "$options")
 
 case "$mode:$publish" in
     emqx:*|both:false)
-        echo "BYD MQTT: modo EMQX Cloud (beta)."
+        echo "BYD MQTT: modo EMQX Cloud."
         if [ "$mode" = both ]; then
             echo "BYD MQTT: activa publish para iniciar también Tailscale Funnel."
         fi

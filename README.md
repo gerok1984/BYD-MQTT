@@ -4,11 +4,13 @@
 
 BYD MQTT is a Home Assistant OS add-on that gives a remote MQTT client a secure WebSocket URL for the official Mosquitto broker. It was built to use Electro in a BYD Dolphin but supports any client compatible with MQTT over WebSocket. It forwards MQTT traffic to `core-mosquitto:1884` through Tailscale Funnel. It requires no router port forwarding. You can keep using Nabu Casa to access Home Assistant.
 
-You can also choose **EMQX Cloud (beta)** for bidirectional telemetry and commands on a single topic. Tailscale reports tunnel outages through a persistent Home Assistant notification.
+It is an alternative to the free [HiveMQ Cloud Serverless](https://docs.hivemq.com/hivemq-cloud/serverless-end-of-life.html) plan, which HiveMQ is retiring on December 31, 2026.
+
+You can also choose **EMQX Cloud** for bidirectional telemetry and commands on a single topic. Tailscale reports tunnel outages through a persistent Home Assistant notification.
 
 ## Connection modes
 
-Choose **Tailscale**, **EMQX Cloud (beta)**, or **Both (beta)** in the add-on settings. For Both, keep `publish: true` and restart the add-on. In Electro and in the add-on's Electro topic field, use the original topic, such as `electro/telemetry/dolphin/data`.
+Choose **Tailscale**, **EMQX Cloud**, or **Both (beta)** in the add-on settings. For Both, keep `publish: true` and restart the add-on. In Electro and in the add-on's Electro topic field, use the original topic, such as `electro/telemetry/dolphin/data`.
 
 In Both mode, publish commands from Home Assistant to the original topic for Tailscale or to `electro/telemetry/dolphin/data/emqx_command` for EMQX. Use the suffix only in the Home Assistant `mqtt.publish` action. [Setup guide](byd_mqtt/DOCS.md#both-modes-beta)
 
